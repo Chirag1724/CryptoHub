@@ -8,7 +8,8 @@ import Pricing from "./components/Pricing";
 import Blog from "./components/Blog";
 import Features from "./components/Features";
 import Signup from "./components/Signup";
-import Login from "./components/Login"
+import Login from "./components/Login";
+import BlogDetail from "./components/BlogDetail";
 
 const App = () => {
   return (
@@ -19,9 +20,12 @@ const App = () => {
         <Route path="/coin/:coinId" element={<Coin />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/blog" element={<Blog />} />
+
+        <Route path="/blog/:id" element={<BlogDetail />} />
+
         <Route path="/features" element={<Features />} />
         <Route path="/signup" element={<Signup />} /> 
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} /> 
       </Routes>
       <Footer />
     </div>
