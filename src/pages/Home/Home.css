@@ -1,22 +1,57 @@
-.home {
-  padding: 0px 10px;
-  padding-bottom: 100px;
+.home-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5% 100px 5%;
+  position: relative;
+  overflow: hidden;
 }
 
-.hero {
-  max-width: 600px;
-  margin: 40px auto 20px auto;
+/* 
+  ------------------------
+  Cosmic Hero Overlay
+  ------------------------
+*/
+.cosmic-hero {
+  min-height: 70vh;
+  /* Reduced from 85vh for less vertical space */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  position: relative;
   text-align: center;
-  gap: 18px;
-  background: none;
-  border-radius: 0;
-  box-shadow: none;
-  padding: 0;
-  backdrop-filter: none;
-  border: none;
+  padding-top: 40px;
+}
+
+.hero-glow-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(118, 39, 255, 0.15) 0%,
+    transparent 70%
+  );
+  z-index: -1;
+  filter: blur(60px);
+}
+
+.hero-planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, transparent 0%, #000 70%);
+  box-shadow: inset -20px -20px 60px rgba(0, 243, 255, 0.1),
+    0 0 50px rgba(188, 0, 221, 0.2);
+  z-index: -1;
+  opacity: 0.8;
 }
 
 .hero-title {
@@ -397,14 +432,11 @@
     font-size: 20px;
     font-weight: 600;
     letter-spacing: 0.5px;
-
     color: #ffffff;
     background: linear-gradient(135deg, #7f5cff, #00d4ff);
-
     border: none;
     border-radius: 50px;
     cursor: pointer;
-
     box-shadow: 0 10px 30px rgba(127, 92, 255, 0.35);
     transition: all 0.3s ease;
   }
@@ -420,91 +452,92 @@
     transform: scale(0.96);
     box-shadow: 0 6px 18px rgba(127, 92, 255, 0.3);
   }
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .table-layout {
-      grid-template-columns: 0.5fr 3fr 1fr 1fr;
-    }
+}
 
-    .market-cap {
-      display: none;
-    }
-
-    .loading-container {
-      min-height: 300px;
-      margin: 20px 0;
-    }
-
-    .table-loading {
-      padding: 30px 20px;
-      margin: 20px auto;
-      border-radius: 15px;
-    }
-
-    .table-loading p {
-      font-size: 1rem;
-    }
-
-    .mini-spinner {
-      width: 35px;
-      height: 35px;
-      border-width: 3px;
-    }
+/* Responsive styles */
+@media (max-width: 768px) {
+  .table-layout {
+    grid-template-columns: 0.5fr 3fr 1fr 1fr;
   }
 
-  @media (max-width: 500px) {
-    .table-layout div img {
-      width: 25px;
-    }
-
-    .table-layout {
-      font-size: 13px;
-    }
-
-    .hero form input {
-      width: 100px;
-    }
-
-    .loading-container {
-      min-height: 250px;
-    }
-
-    .table-loading {
-      padding: 20px 15px;
-      border-radius: 12px;
-    }
-
-    .mini-spinner {
-      width: 30px;
-      height: 30px;
-    }
+  .market-cap {
+    display: none;
   }
 
-  .search-wrapper {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+  .loading-container {
+    min-height: 300px;
+    margin: 20px 0;
   }
 
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .filter-panel {
-      width: calc(100vw - 40px);
-      right: auto;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+  .table-loading {
+    padding: 30px 20px;
+    margin: 20px auto;
+    border-radius: 15px;
+  }
 
-    .hero-form {
-      flex-wrap: nowrap;
-    }
+  .table-loading p {
+    font-size: 1rem;
+  }
 
-    .filter-btn {
-      padding: 8px 12px !important;
-      min-width: 45px;
-    }
+  .mini-spinner {
+    width: 35px;
+    height: 35px;
+    border-width: 3px;
+  }
+}
+
+@media (max-width: 500px) {
+  .table-layout div img {
+    width: 25px;
+  }
+
+  .table-layout {
+    font-size: 13px;
+  }
+
+  .hero form input {
+    width: 100px;
+  }
+
+  .loading-container {
+    min-height: 250px;
+  }
+
+  .table-loading {
+    padding: 20px 15px;
+    border-radius: 12px;
+  }
+
+  .mini-spinner {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filter-panel {
+    width: calc(100vw - 40px);
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hero-form {
+    flex-wrap: nowrap;
+  }
+
+  .filter-btn {
+    padding: 8px 12px !important;
+    min-width: 45px;
   }
 }

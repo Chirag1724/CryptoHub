@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
@@ -101,51 +102,51 @@ export const AuthProvider = ({ children }) => {
     await signOut(auth);
   }, []);
 
-  useEffect(() => {
-    if (!isFirebaseConfigured() || !auth) {
-      setLoading(false);
-      return;
-    }
-
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        try {
-          const userDoc = await getDoc(doc(db, "users", user.uid));
-          if (userDoc.exists()) {
-            const userData = userDoc.data();
-            console.log("Fetched user data from Firestore:", userData);
-            setCurrentUser({
-              ...user,
-              fullName: userData.fullName,
-            });
-            console.log("Current user after merge:", { ...user, fullName: userData.fullName });
-
-            // Initialize leaderboard entry if it doesn't exist
-            const leaderboardDoc = await getDoc(doc(db, "leaderboard", user.uid));
-            if (!leaderboardDoc.exists()) {
-              await setDoc(doc(db, "leaderboard", user.uid), {
-                uid: user.uid,
-                displayName: userData.fullName || user.displayName || "User",
-                photoURL: user.photoURL || null,
-                score: 0,
-                activitiesCount: 0,
-                lastUpdated: serverTimestamp(),
-              });
-            }
-          } else {
-            setCurrentUser(user);
-          }
-        } catch (error) {
-          console.error("Error fetching user profile:", error);
-          setCurrentUser(user);
+    useEffect(() => {
+        if (!isFirebaseConfigured() || !auth) {
+            setLoading(false);
+            return;
         }
-      } else {
-        setCurrentUser(null);
-      }
-      setLoading(false);
-    });
-    return unsubscribe;
-  }, []);
+
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    const userDoc = await getDoc(doc(db, "users", user.uid));
+                    if (userDoc.exists()) {
+                        const userData = userDoc.data();
+                        console.log("Fetched user data from Firestore:", userData);
+                        setCurrentUser({
+                            ...user,
+                            fullName: userData.fullName,
+                        });
+                        console.log("Current user after merge:", { ...user, fullName: userData.fullName });
+
+                        // Initialize leaderboard entry if it doesn't exist
+                        const leaderboardDoc = await getDoc(doc(db, "leaderboard", user.uid));
+                        if (!leaderboardDoc.exists()) {
+                            await setDoc(doc(db, "leaderboard", user.uid), {
+                                uid: user.uid,
+                                displayName: userData.fullName || user.displayName || "User",
+                                photoURL: user.photoURL || null,
+                                score: 0,
+                                activitiesCount: 0,
+                                lastUpdated: serverTimestamp(),
+                            });
+                        }
+                    } else {
+                        setCurrentUser(user);
+                    }
+                } catch (error) {
+                    console.error("Error fetching user profile:", error);
+                    setCurrentUser(user);
+                }
+            } else {
+                setCurrentUser(null);
+            }
+            setLoading(false);
+        });
+        return unsubscribe;
+    }, []);
 
   const value = useMemo(() => ({
     currentUser, loading, signup, login, loginWithGoogle, logout,

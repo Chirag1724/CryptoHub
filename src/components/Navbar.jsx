@@ -1,33 +1,44 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import { CoinContext } from "../context/CoinContext";
+import React, { useState, useEffect, useCallback } from "react";
+/* import { CoinContext } from "../context/CoinContext"; */
 import { useAuth } from "../context/AuthContext";
-import { useTheme } from "../context/ThemeContext";
+/* import { useTheme } from "../context/ThemeContext"; */
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { FiMenu, FiX, FiUser, FiLogOut } from "react-icons/fi"; // Added react-icons for cleaner UI
 import "./Navbar.css";
 
 function Navbar() {
-  const { setCurrency } = useContext(CoinContext);
+  /* const { setCurrency } = useContext(CoinContext); */
   const { currentUser, logout } = useAuth();
-  const { isDark, toggleTheme } = useTheme();
+  /* const { theme } = useTheme(); */
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState({ label: "USD", value: "usd", symbol: "$" });
+  const [scrolled, setScrolled] = useState(false);
 
   const isDashboardPage = location.pathname === "/dashboard";
 
+  // Handle scroll effect for navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  /* 
   const currencies = [
     { label: "USD", value: "usd", symbol: "$" },
     { label: "EUR", value: "eur", symbol: "€" },
     { label: "INR", value: "inr", symbol: "₹" },
   ];
+  */
 
+  /*
   const currencyHandler = useCallback((currency) => {
-    setSelectedCurrency(currency);
     setCurrency({ name: currency.value, Symbol: currency.symbol });
-    setIsCurrencyOpen(false);
   }, [setCurrency]);
+  */
 
   const handleLogout = useCallback(async () => {
     try {
@@ -39,94 +50,97 @@ function Navbar() {
     }
   }, [logout, navigate]);
 
-  useEffect(() => {
-    if (isDark) {
-      document.body.removeAttribute("data-theme");
-    } else {
-      document.body.setAttribute("data-theme", "light");
-    }
-  }, [isDark]);
-
   const navLinks = [
     { to: "/", label: "Home" },
     { to: "/pricing", label: "Pricing" },
-    { to: "/blog", label: "Blog" },
+    { to: "/blog", label: "Insights" }, // Renamed for professionalism
     { to: "/features", label: "Features" },
   ];
 
   return (
-    <div className="navbar">
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <Link
-          to={"/"}
-          style={{
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          <img
-            src="/crypto-logo.png"
-            alt="CryptoHub Logo"
-            className="navbar-logo"
-          />
+    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <div className="navbar-container">
+        <Link to="/" className="navbar-brand">
+          <div className="logo-wrapper">
+            <img src="/crypto-logo.png" alt="CryptoHub" className="logo-img" />
+          </div>
           <span className="logo-text">CryptoHub</span>
         </Link>
-      </div>
 
-      {!isDashboardPage && (
-        <ul>
-          {navLinks.map((link) => (
-            <Link key={link.to} to={link.to}>
-              <li>{link.label}</li>
-            </Link>
-          ))}
-          {currentUser && (
-            <Link to="/dashboard">
-              <li>Dashboard</li>
-            </Link>
+        {/* Desktop Navigation */}
+        <div className="nav-links desktop-only">
+          {!isDashboardPage && (
+            <>
+              {(currentUser ? authenticatedNavLinks : navLinks).map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={location.pathname === link.to ? "active" : ""}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </>
           )}
-        </ul>
-      )}
-
-      <div className="nav-right">
-        <div className="theme-toggle" onClick={toggleTheme}>
-          <div className={`toggle-track ${isDark ? "dark" : "light"}`}>
-            <div className="toggle-thumb"></div>
-          </div>
         </div>
 
-        <select onChange={(e) => {
-          const currency = currencies.find(c => c.value === e.target.value);
-          currencyHandler(currency);
-        }}>
-          <option value="usd">USD</option>
-          <option value="eur">EUR</option>
-          <option value="inr">INR</option>
-        </select>
+        <div className="nav-right desktop-only">
+          {/* Currency Selector Removed as per request */}
 
-        {currentUser ? (
-          <>
-            <div className="user-info">
+          {currentUser ? (
+            <div className="user-menu">
               <span className="user-email">{currentUser.email}</span>
+              <button onClick={handleLogout} className="icon-btn" title="Logout">
+                <FiLogOut />
+              </button>
             </div>
-            <button onClick={handleLogout} className="logout-btn">
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">
-              <button className="login-btn">Login</button>
-            </Link>
-            <Link to="/signup">
-              <button className="login-btn">Sign up</button>
-            </Link>
-          </>
-        )}
+          ) : (
+            <div className="auth-buttons">
+              <Link to="/login" className="btn-glass-nav">Log In</Link>
+              <Link to="/signup" className="btn-neon">Get Started</Link>
+            </div>
+          )}
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <button
+          className="mobile-toggle"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        </button>
       </div>
-    </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="mobile-menu glass-panel">
+          <ul className="mobile-nav-links">
+            {(currentUser ? authenticatedNavLinks : navLinks).map((link) => (
+              <li key={link.to}>
+                <Link
+                  to={link.to}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={location.pathname === link.to ? "active" : ""}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mobile-actions">
+            {!currentUser && (
+              <>
+                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>Log In</Link>
+                <Link to="/signup" className="btn-primary" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
+              </>
+            )}
+            {currentUser && (
+              <button onClick={handleLogout} className="btn-text">Logout</button>
+            )}
+          </div>
+        </div>
+      )}
+    </nav>
   );
 }
 

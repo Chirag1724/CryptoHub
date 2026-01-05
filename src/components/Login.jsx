@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Login.css";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
+import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 
 function Login() {
   const navigate = useNavigate();
@@ -87,35 +90,74 @@ function Login() {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    setErrors({});
+
+    try {
+      await loginWithGoogle();
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Google login error:", error);
+      let errorMessage = "Failed to login with Google. Please try again.";
+
+      if (error.code === "auth/popup-closed-by-user") {
+        errorMessage = "Login cancelled";
+      } else if (error.code === "auth/network-request-failed") {
+        errorMessage = "Network error. Please check your connection";
+      }
+
+      setErrors({ general: errorMessage });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="auth-container">
-      <div className="auth-card">
+      {/* Background Orbs */}
+      <div className="auth-orb orb-top-left"></div>
+      <div className="auth-orb orb-bottom-right"></div>
+
+      <motion.div
+        className="glass-panel auth-card"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="auth-header">
           <h1 className="auth-title">Welcome Back</h1>
           <p className="auth-subtitle">
-            Login to access your crypto dashboard
+            Access your <span className="text-gradient-cyan">CryptoHub</span> Dashboard
           </p>
           {errors.general && (
-            <div className="general-error">
+            <motion.div
+              className="general-error"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+            >
               {errors.general}
-            </div>
+            </motion.div>
           )}
         </div>
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              className={errors.email ? "input-error" : ""}
-              disabled={loading}
-              autoComplete="email"
-            />
+            <div className="input-with-icon">
+              <FiMail className="input-icon" />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Ex. satoshi@bitcoin.org"
+                value={formData.email}
+                onChange={handleChange}
+                className={`auth-input ${errors.email ? "input-error" : ""}`}
+                disabled={loading}
+                autoComplete="email"
+              />
+            </div>
             {errors.email && (
               <span className="error-message">{errors.email}</span>
             )}
@@ -123,7 +165,8 @@ function Login() {
 
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <div className="password-input-wrapper">
+            <div className="input-with-icon">
+              <FiLock className="input-icon" />
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -131,7 +174,7 @@ function Login() {
                 placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
-                className={errors.password ? "input-error" : ""}
+                className={`auth-input ${errors.password ? "input-error" : ""}`}
                 disabled={loading}
                 autoComplete="current-password"
               />
@@ -141,7 +184,7 @@ function Login() {
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={loading}
               >
-                {showPassword ? "👁️" : "👁️‍🗨️"}
+                {showPassword ? <FiEyeOff /> : <FiEye />}
               </button>
             </div>
             {errors.password && (
@@ -159,19 +202,33 @@ function Login() {
             </Link>
           </div>
 
-          <button type="submit" className="auth-submit-btn" disabled={loading}>
+          <button type="submit" className="btn-neon w-full" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
+          </button>
+
+          <div className="divider">
+            <span>OR CONTINUE WITH</span>
+          </div>
+
+          <button
+            type="button"
+            className="google-signin-btn glass-card"
+            onClick={handleGoogleLogin}
+            disabled={loading}
+          >
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="google-icon" />
+            Google Account
           </button>
         </form>
         <div className="auth-footer">
           <p>
-            Don't have an account?{" "}
-            <Link to="/signup" className="auth-link">
-              Sign up
+            New to CryptoHub?{" "}
+            <Link to="/signup" className="auth-link text-gradient-cyan">
+              Create Account
             </Link>
           </p>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

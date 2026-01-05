@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useEffect, useState, useCallback, useMemo } from "react";
 
 export const CoinContext = createContext();
@@ -10,9 +11,6 @@ export const CoinContextProvider = (props) => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchAllCoin = async () => {
-    setIsLoading(true);
-    
   const fetchAllCoin = useCallback(async () => {
     const apiKey = import.meta.env.VITE_CG_API_KEY;
     const options = {
@@ -60,9 +58,7 @@ export const CoinContextProvider = (props) => {
     currency,
     setCurrency,
     isLoading,
-  };
-  
-  }), [allCoin, currency]);
+  }), [allCoin, currency, isLoading]);
   return (
     <CoinContext.Provider value={contextValue}>
       {props.children}
