@@ -12,6 +12,7 @@ import Login from "./components/Login";
 import BlogDetail from "./components/BlogDetail";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Leaderboard from "./components/Leaderboard";
+import ChangePassword from "./components/ChangePassword";
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -19,7 +20,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { CoinContext } from "./context/CoinContext";
 import LoadingSpinner from "./components/LoadingSpinner";
-import Callback from "./pages/Callback";
+
 
 const App = () => {
   const { isLoading } = useContext(CoinContext);
@@ -66,7 +67,6 @@ const App = () => {
             <Route path="/features" element={<Features />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/callback" element={<Callback />} />
             <Route
               path="/leaderboard"
               element={
@@ -80,6 +80,14 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/change-password"
+              element={
+                <PrivateRoute>
+                  <ChangePassword />
                 </PrivateRoute>
               }
             />

@@ -4,8 +4,21 @@ import { useAuth } from "../context/AuthContext";
 import "./Leaderboard.css";
 
 function Leaderboard() {
-  const { leaderboard, userRank, loading } = useLeaderboard();
-  const { currentUser } = useAuth();
+    const { leaderboard, userRank, loading } = useLeaderboard();
+    const { currentUser } = useAuth();
+
+    if (loading) {
+        return (
+            <div className="leaderboard-container">
+                <div className="leaderboard-loading">
+                    <div className="coin-loader">
+                        <div className="spin"></div>
+                    </div>
+                    <p>Loading leaderboard...</p>
+                </div>
+            </div>
+        );
+    }
 
   if (loading) {
     return (
