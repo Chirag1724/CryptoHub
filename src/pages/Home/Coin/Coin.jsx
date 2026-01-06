@@ -10,54 +10,54 @@ const Coin = () => {
   const [historicaldata, setHistoricalData] = useState(null);
   const { currency } = useContext(CoinContext);
 
-  const fetchCoinData = async () => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        "x-cg-demo-api-key": import.meta.env.VITE_CG_API_KEY,
-      },
-    };
-
-    fetch(`https://api.coingecko.com/api/v3/coins/${coinId}`, options)
-      .then((res) => res.json())
-      .then((res) => {
-        setCoinData(res);
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const fetchHistoricalData = async () => {
-    if (!currency?.name) return; // don’t fetch until currency is ready
-
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        "x-cg-demo-api-key": import.meta.env.VITE_CG_API_KEY,
-      },
-    };
-
-    fetch(
-      `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency.name}&days=10&interval=daily`,
-      options
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("Historical data:", res);
-        setHistoricalData(res);
-      })
-      .catch((err) => console.error("History fetch error:", err));
-  };
-
   useEffect(() => {
+    const fetchCoinData = async () => {
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          "x-cg-demo-api-key": import.meta.env.VITE_CG_API_KEY,
+        },
+      };
+
+      fetch(`https://api.coingecko.com/api/v3/coins/${coinId}`, options)
+        .then((res) => res.json())
+        .then((res) => {
+          setCoinData(res);
+        })
+        .catch((err) => console.error(err));
+    };
+
+    const fetchHistoricalData = async () => {
+      if (!currency?.name) return; // don’t fetch until currency is ready
+
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          "x-cg-demo-api-key": import.meta.env.VITE_CG_API_KEY,
+        },
+      };
+
+      fetch(
+        `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency.name}&days=10&interval=daily`,
+        options
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          console.log("Historical data:", res);
+          setHistoricalData(res);
+        })
+        .catch((err) => console.error("History fetch error:", err));
+    };
+
     fetchCoinData();
     fetchHistoricalData();
   }, [currency, coinId]);
 
   if (!coindata || !historicaldata) {
     return (
-      <div className="spinner">
+      <div className="coin-loader">
         <div className="spin"></div>
       </div>
     );
@@ -65,7 +65,7 @@ const Coin = () => {
 
   return (
     <div className="coin">
-      <div className="coin-left">
+      <div data-aos="fade-right" className="coin-left">
         <img className="coin-logo" src={coindata?.image?.large} alt={coindata?.name} />
         <div className="coin-name-below">
           {coindata?.name}
@@ -75,7 +75,7 @@ const Coin = () => {
           <LineChart historicaldata={historicaldata} />
         </div>
       </div>
-      <div className="coin-right">
+      <div data-aos="fade-left" className="coin-right">
         <div className="coin-info">
           <ul>
             <li>Crypto Market Rank</li>

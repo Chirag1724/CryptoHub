@@ -1,69 +1,44 @@
+/* Reuse Login CSS for consistency */
+@import "./Login.css";
 
+/* Signup specific overrides if any */
 .signup-card {
-  max-width: 480px;
+  max-width: 520px;
 }
 
 .terms-checkbox {
-  margin: 5px 0;
-}
-
-.terms-checkbox label {
+  margin-bottom: 25px;
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  color: #e0e0e0;
-  font-size: 0.85rem;
-  cursor: pointer;
+  align-items: center;
+  /* Vertical center */
+  justify-content: center;
+  /* Horizontal center */
+  gap: 12px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.4;
 }
 
-.terms-checkbox input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  margin-top: 2px;
+.terms-checkbox input {
+  margin: 0;
+  /* Remove manual offset */
+  accent-color: var(--neon-cyan);
+  width: 17px;
+  height: 17px;
   cursor: pointer;
-  accent-color: #7927ff;
   flex-shrink: 0;
 }
 
+.terms-checkbox label {
+  cursor: pointer;
+  user-select: none;
+}
+
 .terms-link {
-  color: #7927ff;
-  text-decoration: none;
-  transition: color 0.2s;
+  color: var(--neon-cyan);
+  font-weight: 500;
 }
 
 .terms-link:hover {
-  color: #2193b0;
   text-decoration: underline;
-}
-
-/* Light Theme */
-body[data-theme="light"] .terms-checkbox label {
-  color: #2d3748 !important;
-}
-
-/* Password Strength Indicator (Optional Enhancement) */
-.password-strength {
-  margin-top: 8px;
-  display: flex;
-  gap: 4px;
-  height: 4px;
-}
-
-.strength-bar {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  transition: background 0.3s;
-}
-
-.strength-bar.active.weak {
-  background: #ff4646;
-}
-
-.strength-bar.active.medium {
-  background: #ffaa00;
-}
-
-.strength-bar.active.strong {
-  background: #00d515;
 }
