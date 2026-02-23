@@ -195,6 +195,49 @@ const TopLosers = () => {
             </div>
           </div>
         </motion.div>
+
+      </section>
+
+      {/* Top 3 Losers Highlight Cards */}
+      <section className="tl-highlight-section">
+        <div className="tl-highlight-title">Top 5 Losers</div>
+        <div className="tl-highlight-cards">
+          {(() => {
+            // Take the 6 coins with the worst 24h loss, then sort those by market cap rank
+            const worstSix = sortedCoins
+              .filter((coin) => coin.market_cap_rank)
+              .slice(0, 5)
+              .sort((a, b) => a.market_cap_rank - b.market_cap_rank);
+            return worstSix.map((coin, idx) => (
+              <motion.div
+                key={coin.id}
+                className="tl-highlight-card glass-card"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+              >
+                <Link to={`/coin/${coin.id}`} className="tl-highlight-link">
+                  <div className="tl-highlight-rank">#{coin.market_cap_rank}</div>
+                  <img src={coin.image} alt={coin.name} className="tl-highlight-img" />
+                  <div className="tl-highlight-info">
+                    <div className="tl-highlight-symbol">{coin.symbol.toUpperCase()}</div>
+                    <div className="tl-highlight-name">{coin.name}</div>
+                    <div className="tl-highlight-price">
+                      {currency.Symbol || currency.symbol}
+                      {coin.current_price < 0.01
+                        ? coin.current_price.toFixed(6)
+                        : coin.current_price.toLocaleString()}
+                    </div>
+                    <div className="tl-highlight-loss">
+                      <FiArrowDownRight className="loss-icon" />
+                      {Math.abs(coin.price_change_percentage_24h).toFixed(2)}%
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ));
+          })()}
+        </div>
       </section>
 
       {/* Sort Controls */}
