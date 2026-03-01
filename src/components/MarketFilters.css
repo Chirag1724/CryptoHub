@@ -38,3 +38,17 @@
   color: #ffffff;
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
 }
+
+@media (max-width: 768px) {
+  .market-filters {
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .filter-label {
+    width: 100%;
+    margin-bottom: 4px;
+    margin-right: 0;
+  }
+}

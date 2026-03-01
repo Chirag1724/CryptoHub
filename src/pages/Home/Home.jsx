@@ -124,7 +124,7 @@ const Home = () => {
           >
             <div className="search-wrapper-professional">
               <form className="search-bar-cosmic" onSubmit={searchHandler}>
-                <FiSearch style={{ color: 'rgba(255, 255, 255, 0.4)', marginRight: '12px', fontSize: '1.2rem' }} />
+                <FiSearch />
                 <input
                   value={input}
                   onChange={inputHandler}

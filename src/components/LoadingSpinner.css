@@ -104,6 +104,7 @@
   background: linear-gradient(to right, #fff, #3b82f6, #fff);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shine 2s linear infinite, bounceText 1s ease-in-out infinite;
 }
@@ -183,5 +184,53 @@
 
   100% {
     transform: translateX(100%);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .loader-orbit-container {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 40px;
+  }
+
+  .loader-logo-pulse {
+    width: 60px;
+    height: 60px;
+  }
+
+  .ring-1 {
+    width: 140px;
+    height: 140px;
+  }
+
+  .ring-2 {
+    width: 120px;
+    height: 120px;
+  }
+
+  .ring-3 {
+    width: 100px;
+    height: 100px;
+  }
+
+  .ring-4 {
+    width: 80px;
+    height: 80px;
+  }
+
+  .ring-5 {
+    width: 180px;
+    height: 180px;
+  }
+
+  .loader-message {
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .loader-progress-bar {
+    width: 220px;
   }
 }

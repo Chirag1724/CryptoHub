@@ -26,10 +26,19 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
-    background-size: 10% 100%;
+    background-image: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+    background-size: 20% 100%;
+    /* Wider grid on mobile */
     pointer-events: none;
     z-index: 0;
+}
+
+@media (min-width: 1024px) {
+    .home-container::before {
+        background-size: 10% 100%;
+        /* Original density for desktop */
+        background-image: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    }
 }
 
 .cosmic-hero {
@@ -109,7 +118,8 @@
     max-width: 550px;
     margin: 0 auto 56px;
     position: relative;
-    z-index: 1000;
+    z-index: 10;
+    /* Lower than navbar (1000) but higher than normal content */
 }
 
 .search-wrapper-professional {
@@ -120,14 +130,43 @@
 .search-bar-cosmic {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 14px 28px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    padding: 12px 20px;
     border-radius: 999px;
     backdrop-filter: blur(20px);
     transition: all 0.3s ease;
     position: relative;
     z-index: 1001;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.search-bar-cosmic svg {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.25rem;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.search-bar-cosmic input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 1rem;
+    padding: 8px 0;
+    min-width: 0;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .search-bar-cosmic {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 14px 28px;
+    }
 }
 
 .search-bar-cosmic:focus-within {
@@ -138,16 +177,16 @@
 
 .search-results-dropdown {
     position: absolute;
-    top: calc(100% + 12px);
+    top: calc(100% + 8px);
     left: 0;
     width: 100%;
-    background: rgba(10, 10, 15, 0.9);
-    backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 12px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-    z-index: 1000;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 8px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+    z-index: 2000;
     overflow: hidden;
 }
 
@@ -220,7 +259,9 @@
     outline: none;
     color: white;
     font-size: 1rem;
-    padding: 12px 0;
+    padding: 8px 0;
+    min-width: 0;
+    /* Prevents input from expanding parent */
 }
 
 .search-bar-cosmic .btn-primary {
@@ -290,8 +331,9 @@
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4),
         inset 0 0 20px rgba(59, 130, 246, 0.05);
     white-space: nowrap;
-    z-index: 5;
-    pointer-events: auto;
+    z-index: -1;
+    /* Always behind navbar and main content */
+    pointer-events: none;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -372,6 +414,33 @@
 
 @media (max-width: 768px) {
     .orbital-element {
+        padding: 8px 14px;
+        font-size: 0.75rem;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    .orb-1 {
+        top: 25%;
+        left: -2%;
+    }
+
+    .orb-2 {
+        bottom: 15%;
+        right: -2%;
+    }
+
+    .orb-3 {
+        top: 20%;
+        right: -2%;
+    }
+
+    .orb-4 {
+        display: none;
+    }
+
+    .orb-5 {
         display: none;
     }
 }
@@ -469,18 +538,21 @@
 .hero-title {
     font-size: clamp(2.5rem, 8vw, 5.5rem);
     font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    max-width: 1100px;
-    margin: 0;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 32px;
+    letter-spacing: -0.02em;
+    max-width: 100%;
+    word-wrap: break-word;
 }
 
 .hero-subtitle {
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: 1.125rem;
     color: var(--text-muted);
     max-width: 600px;
-    margin: 0;
+    margin: 0 auto 48px;
     line-height: 1.6;
+    padding: 0 20px;
 }
 
 /* Market Overview Section - ELITE HIGH-DENSITY UPGRADE */
@@ -658,12 +730,16 @@
     font-weight: 600;
 }
 
-/* Response Fixes */
+/* Responsive Fixes & Professional Mobile Polish */
 @media (max-width: 1024px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
 
     .table-header,
     .table-row {
-        grid-template-columns: 60px 2fr 1.2fr 1.2fr;
+        grid-template-columns: 50px 1.5fr 1fr 1fr;
+        padding: 16px 20px;
     }
 
     .col-mcap {
@@ -676,23 +752,221 @@
 }
 
 @media (max-width: 768px) {
+    .cosmic-hero {
+        padding: 120px 24px 80px;
+        min-height: auto;
+    }
+
+    .hero-badge {
+        font-size: 0.75rem;
+        padding: 6px 16px;
+        margin-bottom: 24px;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 9vw, 3rem);
+        line-height: 1.1;
+        margin-bottom: 24px;
+        letter-spacing: -0.01em;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 32px;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 100%;
+    }
+
+    .search-orbit-container {
+        margin-bottom: 40px;
+        max-width: 100%;
+    }
+
+    .search-bar-cosmic {
+        padding: 12px 20px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .top-coins-marquee {
+        max-width: 100%;
+        margin-top: 20px;
+    }
+
     .market-section {
+        margin: 40px auto;
         padding: 0 16px;
-    }
-
-    .table-container {
-        border-radius: 12px;
-        overflow-x: auto;
-    }
-
-    .table-header,
-    .table-row {
-        min-width: 800px;
     }
 
     .section-header {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+        margin-bottom: 32px;
+        padding: 0 10px;
+    }
+
+    .section-header h2 {
+        font-size: clamp(1.5rem, 8vw, 2.2rem);
+        margin-bottom: 8px;
+    }
+
+    .live-indicator {
+        margin: 0 auto;
+    }
+
+    .market-actions {
+        width: 100%;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .table-container {
+        border-radius: 12px;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .table-header {
+        display: none;
+        /* Hide header on mobile for cleaner card-like look */
+    }
+
+    .table-body {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .table-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(15, 23, 42, 0.5);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        padding: 18px;
+        margin-bottom: 4px;
+        transition: all 0.3s;
+    }
+
+    .table-row:active {
+        background: rgba(59, 130, 246, 0.1);
+        transform: scale(0.98);
+    }
+
+    .col-rank {
+        display: none;
+        /* Hide rank on mobile */
+    }
+
+    .coin-icon {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    .coin-info {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 2px !important;
+    }
+
+    .coin-symbol {
+        font-size: 0.95rem !important;
+    }
+
+    .coin-fullname {
+        font-size: 0.75rem !important;
+    }
+
+    .col-price {
+        font-size: 1rem;
+        text-align: right;
+    }
+
+    .col-change {
+        font-size: 0.85rem;
+    }
+
+    .load-more-container {
+        margin-top: 32px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .load-more-btn {
+        width: 100% !important;
+        max-width: 320px;
+        padding: 14px !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .cosmic-hero {
+        padding: 120px 20px 60px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 24px;
+    }
+
+    .search-orbit-container {
+        padding: 0 5px;
+        box-sizing: border-box;
+    }
+
+    .search-bar-cosmic {
+        padding: 8px 15px;
+    }
+
+    .search-bar-cosmic input {
+        font-size: 0.9rem;
+        padding: 6px 0;
+    }
+
+    .search-bar-cosmic .btn-primary {
+        padding: 8px 14px;
+        font-size: 0.75rem;
+    }
+
+    .search-bar-cosmic svg {
+        font-size: 1rem;
+        margin-right: 8px;
+    }
+
+    .table-row {
+        padding: 14px 16px;
+    }
+
+    .coin-icon {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    .coin-symbol {
+        font-size: 0.9rem !important;
+    }
+
+    .col-price {
+        font-size: 0.95rem;
+    }
+
+    .col-change {
+        font-size: 0.8rem;
     }
 }

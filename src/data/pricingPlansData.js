@@ -1,4 +1,3 @@
-// SAMPLE DATA - REQUIRED FOR WORKING CODE
 export const plans = [
   {
     name: "Explorer",
@@ -7,53 +6,58 @@ export const plans = [
     description: "Perfect for beginners",
     highlight: false,
     features: [
-      { label: "Basic Market Data", available: true },
-      { label: "5 Signals/Day", available: true },
-      { label: "Email Alerts", available: true },
-      { label: "Mobile App", available: true },
-      { label: "Real-time Charts", available: false },
-      { label: "Priority Support", available: false },
+      { label: "Real-time Market Data", available: true },
+      { label: "5 Alpha Signals/Day", available: true },
+      { label: "Public Community Access", available: true },
+      { label: "Email Notifications", available: true },
+      { label: "Advanced Technical Charts", available: false },
+      { label: "Direct API Access", available: false },
+      { label: "Whale Wallet Tracking", available: false },
     ]
   },
   {
     name: "Trader",
-    price: "$29",
+    price: "$15",
     period: "",
     description: "For active traders",
     highlight: true,
     features: [
-      { label: "Basic Market Data", available: true },
-      { label: "Unlimited Signals", available: true },
+      { label: "Real-time Market Data", available: true },
+      { label: "Unlimited Alpha Signals", available: true },
+      { label: "Pro Discord Community", available: true },
       { label: "SMS + Email Alerts", available: true },
-      { label: "Mobile App Pro", available: true },
-      { label: "Real-time Charts", available: true },
-      { label: "24/7 Priority Support", available: true },
+      { label: "Advanced Technical Charts", available: true },
+      { label: "Direct API Access", available: false },
+      { label: "Whale Wallet Tracking", available: false },
     ]
   },
   {
     name: "Pro",
-    price: "$99",
+    price: "$39",
     period: "",
-    description: "Enterprise features",
+    description: "Institutional features",
     highlight: false,
     features: [
-      { label: "Everything in Trader", available: true },
-      { label: "Advanced Analytics", available: true },
-      { label: "API Access", available: true },
-      { label: "Custom Alerts", available: true },
-      { label: "Dedicated Manager", available: true },
-      { label: "White-label App", available: true },
+      { label: "Raw Exchange Connectivity", available: true },
+      { label: "Institutional Grade Signals", available: true },
+      { label: "Private VIP Alpha Group", available: true },
+      { label: "Multi-channel Webhooks", available: true },
+      { label: "Proprietary Indicators", available: true },
+      { label: "L3 Direct API Access", available: true },
+      { label: "Whale Wallet Tracking", available: true },
+      { label: "AI Sentiment Analysis", available: true },
     ]
   }
 ];
 
 export const comparisonFeatures = [
-  { name: "Market Data" },
-  { name: "Signals" },
-  { name: "Alerts" },
-  { name: "Charts" },
-  { name: "Support" },
-  { name: "API Access" }
+  { name: "Market Data", keywords: ["Market Data", "Exchange Connectivity"] },
+  { name: "Alpha Signals", keywords: ["Signals"] },
+  { name: "Community Access", keywords: ["Community", "Alpha Group"] },
+  { name: "Alerts & Notifications", keywords: ["Alerts", "Notifications", "Webhooks"] },
+  { name: "Advanced Analytics", keywords: ["Charts", "Indicators", "Sentiment"] },
+  { name: "API Access", keywords: ["API"] },
+  { name: "Whale Tracking", keywords: ["Whale"] }
 ];
 
 export const faqs = [
