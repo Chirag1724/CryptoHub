@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "@/pages/Home/Home";
@@ -20,21 +20,36 @@ import PrivateRoute from "@/components/PrivateRoute";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import Contributors from "@/components/Contributors";
+import PrivacyPolicy from "@/pages/Legal/PrivacyPolicy";
+import TermsOfService from "@/pages/Legal/TermsOfService";
+import CookiePolicy from "@/pages/Legal/CookiePolicy";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { CoinContext } from "@/context/CoinContext";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Toaster } from "react-hot-toast";
 import ScrollToTop from "@/components/ScrollToTop";
+import SplashCursor from "@/components/SplashCursor";
 
 const App = () => {
   const { isLoading } = useContext(CoinContext);
+  const [minTimePassed, setMinTimePassed] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMinTimePassed(true);
+    }, 2000); // 2 Seconds minimum
+    return () => clearTimeout(timer);
+  }, []);
+
   const isDashboard = location.pathname === "/dashboard" ||
     location.pathname === "/leaderboard" ||
     location.pathname === "/market-overview" ||
     location.pathname === "/change-password" ||
-    location.pathname.startsWith("/coin/");
+    location.pathname === "/login" ||
+    location.pathname === "/signup" ||
+    location.pathname === "/forgot-password";
 
   useEffect(() => {
     AOS.init({
@@ -72,8 +87,9 @@ const App = () => {
       <ThemeProvider>
         <AuthProvider>
           <div className="app">
-            {/* Loading Spinner - will show when isLoading is true */}
-            {isLoading && !isDashboard && <LoadingSpinner />}
+            <SplashCursor />
+            {/* Loading Spinner - will show when isLoading is true or minTime hasn't passed */}
+            {(!minTimePassed || isLoading) && !isDashboard && <LoadingSpinner />}
 
             {!isDashboard && <Navbar />}
             <Routes>
@@ -83,7 +99,7 @@ const App = () => {
               {/* Blog detail route supporting both slug and id patterns */}
               <Route path="/blog/:slug" element={<BlogDetail />} />
               <Route path="/blog/article/:id" element={<BlogDetail />} />
-              
+
               <Route path="/features" element={<Features />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
@@ -104,7 +120,12 @@ const App = () => {
 
               {/* Coin route - accessible to all but shows sidebar if logged in */}
               <Route path="/coin/:coinId" element={<CoinWrapper />} />
-              
+
+              {/* Legal Routes */}
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/cookies" element={<CookiePolicy />} />
+
               {/* Add 404 Route if you implemented it earlier */}
               {/* <Route path="*" element={<NotFound />} /> */}
             </Routes>
