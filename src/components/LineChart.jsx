@@ -1,30 +1,49 @@
-import React, { useEffect, useState } from "react";
-import Chart from "react-google-charts";
+import React, { useEffect, useRef } from "react";
 
-const LineChart = ({ historicaldata }) => {
-  const [data, setData] = useState([["Date", "Prices"]]);
+const LineChart = ({ coinId, symbol, currency }) => {
+  const container = useRef();
+
+  // Mapping some common coins to TradingView symbols if needed, 
+  // though typically ${symbol}USDT works for many
+  const tvSymbol = symbol ? `${symbol.toUpperCase()}${currency?.name?.toUpperCase() === 'INR' ? 'INR' : 'USDT'}` : "BTCUSDT";
 
   useEffect(() => {
-    let dataCopy = [["Date", "Prices"]];
-
-    if (historicaldata?.prices) {
-      historicaldata.prices.forEach((item) => {
-        // Format as day/month (e.g., 25/6)
-        const d = new Date(item[0]);
-        const dateStr = `${d.getDate()}/${d.getMonth() + 1}`;
-        dataCopy.push([dateStr, item[1]]);
-      });
-      setData(dataCopy);
+    // Clear any existing widgets
+    if (container.current) {
+      container.current.innerHTML = "";
     }
-  }, [historicaldata]);
+
+    const script = document.createElement("script");
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+    script.type = "text/javascript";
+    script.async = true;
+    script.innerHTML = JSON.stringify({
+      "autosize": true,
+      "symbol": `BINANCE:${tvSymbol}`,
+      "interval": "D",
+      "timezone": "Etc/UTC",
+      "theme": "dark",
+      "style": "1",
+      "locale": "en",
+      "enable_publishing": false,
+      "hide_top_toolbar": true,
+      "hide_legend": false,
+      "save_image": false,
+      "calendar": false,
+      "hide_volume": false,
+      "support_host": "https://www.tradingview.com",
+      "container_id": "tv-chart-widget",
+      "backgroundColor": "rgba(0, 0, 0, 1)",
+      "gridColor": "rgba(59, 130, 246, 0.06)",
+    });
+
+    container.current.appendChild(script);
+  }, [tvSymbol]);
 
   return (
-    <Chart
-      chartType="LineChart"
-      data={data}
-      height="100%"
-      legendToggle
-    />
+    <div className="tradingview-widget-container" ref={container} style={{ height: "100%", width: "100%" }}>
+      <div className="tradingview-widget-container__widget" style={{ height: "100%", width: "100%" }}></div>
+    </div>
   );
 };
 
