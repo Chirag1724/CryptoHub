@@ -1,0 +1,479 @@
+/* =============================================
+   CRYPTOHUB - COMPANY PAGES CSS (About, FAQ, Contact)
+   Theme: Cosmic Blue Neon (Elite Institutional)
+   ============================================= */
+
+.company-container {
+    min-height: 100vh;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 140px 24px 100px;
+    position: relative;
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Vertical Grid Lines */
+.company-container::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+    background-size: 10% 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Atmospheric Glowing Orbs */
+.company-glow-1,
+.company-glow-2 {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 0;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.company-glow-1 {
+    top: -10%;
+    right: -5%;
+    width: 40%;
+    height: 500px;
+    background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+}
+
+.company-glow-2 {
+    bottom: -15%;
+    left: -5%;
+    width: 45%;
+    height: 600px;
+    background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
+}
+
+.company-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+/* Header Section */
+.company-header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.company-title {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -3px;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.company-subtitle {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.text-gradient-cyan {
+    color: #06b6d4;
+    font-weight: 700;
+}
+
+/* Layout System */
+.company-layout {
+    display: flex;
+    gap: 4rem;
+}
+
+.company-layout.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.company-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.company-sidebar h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-link {
+    background: none;
+    border: none;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sidebar-link.active {
+    color: #fff;
+    background: rgba(59, 130, 246, 0.1);
+    box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.1);
+}
+
+.sidebar-link:hover:not(.active) {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Content Area */
+.company-main-content {
+    flex-grow: 1;
+}
+
+/* FAQ Styles */
+.faq-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.faq-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    transition: all 0.3s;
+}
+
+.faq-card:hover {
+    background: rgba(59, 130, 246, 0.03);
+    border-color: rgba(59, 130, 246, 0.2);
+    transform: translateY(-5px);
+}
+
+.faq-icon {
+    width: 40px;
+    height: 40px;
+    background: #3b82f6;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.faq-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.faq-content p {
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+}
+
+.still-questions {
+    margin-top: 4rem;
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+    border-radius: 24px;
+    text-align: center;
+}
+
+.contact-link-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 12px 30px;
+    background: #3b82f6;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: all 0.3s;
+}
+
+.contact-link-btn:hover {
+    background: #2563eb;
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+}
+
+/* About Us Section Styles */
+.company-section {
+    margin-bottom: 6rem;
+}
+
+.company-content-block h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.company-content-block p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.company-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    color: #3b82f6;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.principle-item {
+    text-align: center;
+}
+
+.principle-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.principle-item h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.principle-item p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.95rem;
+}
+
+.highlight-box {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 32px;
+    padding: 4rem;
+}
+
+.tech-stack-flex {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.tech-tag {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 20px;
+    border-radius: 99px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #3b82f6;
+}
+
+/* Contact Us Specific Styles */
+.contact-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 32px;
+    padding: 3rem;
+    height: 100%;
+}
+
+.contact-card h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-card p {
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+    margin-bottom: 3rem;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.method-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.method-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #3b82f6;
+}
+
+.method-text h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 5px;
+}
+
+.method-text p {
+    margin: 0;
+    color: #fff;
+    font-weight: 600;
+}
+
+.contact-form {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 32px;
+    padding: 3rem;
+}
+
+.contact-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.contact-form label {
+    display: block;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 14px 20px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.submit-btn-neon {
+    width: 100%;
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn-neon:hover {
+    background: #2563eb;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Responsive Overrides */
+@media (max-width: 1024px) {
+
+    .company-layout,
+    .company-layout.grid-2 {
+        flex-direction: column;
+        display: flex;
+    }
+
+    .company-sidebar {
+        width: 100%;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .principles-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .company-title {
+        font-size: 2.5rem;
+    }
+
+    .company-header {
+        margin-bottom: 3rem;
+    }
+
+    .contact-form,
+    .highlight-box {
+        padding: 2rem;
+    }
+}

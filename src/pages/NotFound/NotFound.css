@@ -1,0 +1,157 @@
+/* =============================================
+   CRYPTOHUB - NOT FOUND PAGE CSS (COSMIC BLUE NEON)
+   ============================================= */
+
+.notfound-container {
+    min-height: 100vh;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 24px 100px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+}
+
+/* Vertical Grid Lines */
+.notfound-container::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+    background-size: 10% 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Atmospheric Glowing Orbs */
+.glow-spot {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 0;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.top-right {
+    top: -10%;
+    right: -5%;
+    width: 40%;
+    height: 500px;
+    background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+}
+
+.bottom-left {
+    bottom: -15%;
+    left: -5%;
+    width: 45%;
+    height: 600px;
+    background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
+}
+
+.notfound-inner {
+    max-width: 800px;
+    position: relative;
+    z-index: 10;
+}
+
+.notfound-icon {
+    font-size: 4rem;
+    color: #3b82f6;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.4));
+    animation: auth-pulse 2s infinite ease-in-out;
+}
+
+@keyframes auth-pulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+.notfound-404 {
+    font-size: 10rem;
+    font-weight: 900;
+    letter-spacing: -8px;
+    line-height: 1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff 0%, #3b82f6 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.2));
+}
+
+.notfound-title {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+}
+
+.notfound-text {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.5);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+.text-gradient-cyan {
+    color: #06b6d4;
+}
+
+.btn-back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #3b82f6;
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+}
+
+.btn-back-home:hover {
+    background: #2563eb;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
+}
+
+.btn-back-home svg {
+    font-size: 1.2rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .notfound-404 {
+        font-size: 6rem;
+        letter-spacing: -4px;
+    }
+
+    .notfound-title {
+        font-size: 2rem;
+    }
+
+    .notfound-text {
+        font-size: 1.1rem;
+    }
+}

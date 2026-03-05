@@ -13,6 +13,9 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const [isCompanyOpen, setIsCompanyOpen] = useState(false);
+  const [isMobileCompanyOpen, setIsMobileCompanyOpen] = useState(false);
+
   const isDashboardPage = location.pathname === "/dashboard";
 
   // Handle scroll effect for navbar
@@ -71,6 +74,24 @@ function Navbar() {
               </Link>
             </li>
           ))}
+
+          {/* Company Dropdown Desktop */}
+          <li
+            className="navbar-item dropdown"
+            onMouseEnter={() => setIsCompanyOpen(true)}
+            onMouseLeave={() => setIsCompanyOpen(false)}
+          >
+            <span className={`navbar-link ${location.pathname.startsWith('/about') || location.pathname.startsWith('/faq') || location.pathname.startsWith('/contact') ? "active" : ""}`}>
+              Company <span className="dropdown-arrow">▼</span>
+            </span>
+            {isCompanyOpen && (
+              <ul className="dropdown-menu">
+                <li><Link to="/about" onClick={closeMobileMenu}>About Us</Link></li>
+                <li><Link to="/faq" onClick={closeMobileMenu}>FAQ</Link></li>
+                <li><Link to="/contact" onClick={closeMobileMenu}>Contact Support</Link></li>
+              </ul>
+            )}
+          </li>
         </ul>
 
         {/* Right Actions (Desktop) */}
@@ -103,6 +124,21 @@ function Navbar() {
               </Link>
             </li>
           ))}
+
+          {/* Company Dropdown Mobile */}
+          <li className="mobile-dropdown">
+            <button
+              className={`mobile-link ${isMobileCompanyOpen ? 'active' : ''}`}
+              onClick={() => setIsMobileCompanyOpen(!isMobileCompanyOpen)}
+            >
+              Company {isMobileCompanyOpen ? '▲' : '▼'}
+            </button>
+            <div className={`mobile-dropdown-content ${isMobileCompanyOpen ? 'open' : ''}`}>
+              <Link to="/about" onClick={closeMobileMenu}>About Us</Link>
+              <Link to="/faq" onClick={closeMobileMenu}>FAQ</Link>
+              <Link to="/contact" onClick={closeMobileMenu}>Contact Support</Link>
+            </div>
+          </li>
         </ul>
         <div className="mobile-drawer-actions">
           <Link to="/login" className="mobile-btn-login" onClick={closeMobileMenu}>
