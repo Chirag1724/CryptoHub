@@ -20,6 +20,13 @@ import PrivateRoute from "@/components/PrivateRoute";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import Contributors from "@/components/Contributors";
+import PrivacyPolicy from "@/pages/Legal/PrivacyPolicy";
+import TermsOfService from "@/pages/Legal/TermsOfService";
+import CookiePolicy from "@/pages/Legal/CookiePolicy";
+import AboutUs from "@/pages/Company/AboutUs";
+import FAQ from "@/pages/Company/FAQ";
+import ContactUs from "@/pages/Company/ContactUs";
+import NotFound from "@/pages/NotFound/NotFound";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { CoinContext } from "@/context/CoinContext";
@@ -115,8 +122,18 @@ const App = () => {
               {/* Coin route - accessible to all but shows sidebar if logged in */}
               <Route path="/coin/:coinId" element={<CoinWrapper />} />
 
-              {/* Add 404 Route if you implemented it earlier */}
-              {/* <Route path="*" element={<NotFound />} /> */}
+              {/* Legal Routes */}
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/cookies" element={<CookiePolicy />} />
+
+              {/* Company Routes */}
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/contact" element={<ContactUs />} />
+
+              {/* 404 Route */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
             {!isDashboard && <Footer />}
           </div>
