@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import "./contributors.css"; 
+import "./contributors.css";
 
 const OWNER = "KaranUnique";
 const REPO = "CryptoHub";
@@ -10,7 +10,7 @@ const PROJECT_ADMIN = {
   repo: "CryptoHub",
   repoUrl: "https://github.com/KaranUnique/CryptoHub",
   githubUrl: "https://github.com/KaranUnique",
-  avatarUrl: `https://avatars.githubusercontent.com/KaranUnique?v=4&s=200`, 
+  avatarUrl: `https://avatars.githubusercontent.com/KaranUnique?v=4&s=200`,
   description: "Project Creator & Lead Maintainer"
 };
 
@@ -71,7 +71,7 @@ const Contributors = () => {
         // Fetch all pages of closed PRs (public GitHub API)
         while (keepFetching) {
           const url = `https://api.github.com/repos/${OWNER}/${REPO}/pulls?state=closed&per_page=${perPage}&page=${page}`;
-          
+
           const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -201,265 +201,267 @@ const Contributors = () => {
 
   return (
     <div className="contributors-page">
-      {/* Header Section */}
-      <section className="contributors-header">
-        <h1 className="contributors-title">Our Amazing Contributors</h1>
-        <p className="contributors-subtitle">
-          Meet the talented developers who help make CryptoHub better every day.
-        </p>
+      <div className="contributors-inner">
+        {/* Header Section */}
+        <section className="contributors-header">
+          <h1 className="contributors-title">Our Amazing Contributors</h1>
+          <p className="contributors-subtitle">
+            Meet the talented developers who help make CryptoHub better every day.
+          </p>
 
-        <div className="contributors-stats">
-          <div className="contributors-stat-card">
-            <span className="stat-label">Contributors</span>
-            <span className="stat-value">{contributors.length}</span>
-          </div>
-
-          <div className="contributors-stat-card">
-            <span className="stat-label">Total PRs</span>
-            <span className="stat-value">
-              {contributors.reduce((sum, c) => sum + c.totalPRs, 0)}
-            </span>
-          </div>
-
-          <div className="contributors-stat-card">
-            <span className="stat-label">Total Points</span>
-            <span className="stat-value">
-              {contributors.reduce((sum, c) => sum + c.totalPoints, 0)}
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Filters Section */}
-      <section className="contributors-controls">
-        <input
-          type="text"
-          className="contributors-search-input"
-          placeholder="Search contributor..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <div className="contributors-filters">
-          <select
-            className="contributors-select contributors-sort-select"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option value="most_points">Most Contributions (Points)</option>
-            <option value="most_prs">Most PRs</option>
-          </select>
-
-          <select
-            className="contributors-select contributors-rank-select"
-            value={selectedRankFilter}
-            onChange={(e) => setSelectedRankFilter(e.target.value)}
-          >
-            <option value="all">All Contributors</option>
-            <option value="gold">Gold Only</option>
-            <option value="silver">Silver Only</option>
-            <option value="bronze">Bronze Only</option>
-            <option value="contributor">Contributors</option>
-          </select>
-        </div>
-      </section>
-
-      {/*  NEW PROJECT ADMIN SECTION  */}
-      <section className="project-admin-section">
-        <div className="project-admin-container">
-          <div className="project-admin-header">
-            <div className="project-admin-avatar-wrapper">
-              <img
-                src={PROJECT_ADMIN.avatarUrl}
-                alt={PROJECT_ADMIN.username}
-                className="project-admin-avatar"
-              />
-              <div className="admin-badge">👑</div>
+          <div className="contributors-stats">
+            <div className="contributors-stat-card">
+              <span className="stat-label">Contributors</span>
+              <span className="stat-value">{contributors.length}</span>
             </div>
-            <div className="project-admin-info">
-              <h2 className="project-admin-title">Project Admin</h2>
-              <p className="project-admin-username">{PROJECT_ADMIN.username}</p>
-              <p className="project-admin-description">{PROJECT_ADMIN.description}</p>
+
+            <div className="contributors-stat-card">
+              <span className="stat-label">Total PRs</span>
+              <span className="stat-value">
+                {contributors.reduce((sum, c) => sum + c.totalPRs, 0)}
+              </span>
+            </div>
+
+            <div className="contributors-stat-card">
+              <span className="stat-label">Total Points</span>
+              <span className="stat-value">
+                {contributors.reduce((sum, c) => sum + c.totalPoints, 0)}
+              </span>
             </div>
           </div>
+        </section>
 
-          <div className="project-admin-repo">
-            <h3 className="project-admin-repo-title">Repository</h3>
-            <div className="project-admin-repo-link" onClick={handleOpenRepo}>
-              <span className="repo-name">{PROJECT_ADMIN.repo}</span>
-              <span className="repo-icon">📂</span>
-            </div>
-          </div>
+        {/* Filters Section */}
+        <section className="contributors-controls">
+          <input
+            type="text"
+            className="contributors-search-input"
+            placeholder="Search contributor..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
-          <div className="project-admin-actions">
-            <button 
-              className="btn btn-primary project-admin-btn"
-              onClick={() => handleOpenGitHubProfile(PROJECT_ADMIN.githubUrl)}
+          <div className="contributors-filters">
+            <select
+              className="contributors-select contributors-sort-select"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
             >
-              View GitHub Profile →
-            </button>
-            <button 
-              className="btn btn-outline project-admin-btn"
-              onClick={handleOpenRepo}
+              <option value="most_points">Most Contributions (Points)</option>
+              <option value="most_prs">Most PRs</option>
+            </select>
+
+            <select
+              className="contributors-select contributors-rank-select"
+              value={selectedRankFilter}
+              onChange={(e) => setSelectedRankFilter(e.target.value)}
             >
-              Open Repository 📚
-            </button>
+              <option value="all">All Contributors</option>
+              <option value="gold">Gold Only</option>
+              <option value="silver">Silver Only</option>
+              <option value="bronze">Bronze Only</option>
+              <option value="contributor">Contributors</option>
+            </select>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Content Section */}
-      <section className="contributors-content">
-        {loading && (
-          <div className="loading-container">
-            <p className="contributors-loading">Loading contributor data from GitHub...</p>
-          </div>
-        )}
+        {/*  NEW PROJECT ADMIN SECTION  */}
+        <section className="project-admin-section">
+          <div className="project-admin-container">
+            <div className="project-admin-header">
+              <div className="project-admin-avatar-wrapper">
+                <img
+                  src={PROJECT_ADMIN.avatarUrl}
+                  alt={PROJECT_ADMIN.username}
+                  className="project-admin-avatar"
+                />
+                <div className="admin-badge">👑</div>
+              </div>
+              <div className="project-admin-info">
+                <h2 className="project-admin-title">Project Admin</h2>
+                <p className="project-admin-username">{PROJECT_ADMIN.username}</p>
+                <p className="project-admin-description">{PROJECT_ADMIN.description}</p>
+              </div>
+            </div>
 
-        {error && (
-          <div className="error-container">
-            <p className="contributors-error">{error}</p>
-            <p style={{fontSize: '0.85rem', color: '#9ca3af'}}>
-              Stats will show "No contributors found" - normal if repo has no merged PRs yet.
-            </p>
-          </div>
-        )}
+            <div className="project-admin-repo">
+              <h3 className="project-admin-repo-title">Repository</h3>
+              <div className="project-admin-repo-link" onClick={handleOpenRepo}>
+                <span className="repo-name">{PROJECT_ADMIN.repo}</span>
+                <span className="repo-icon">📂</span>
+              </div>
+            </div>
 
-        {!loading && !error && filteredContributors.length === 0 && (
-          <div className="empty-state">
-            <p className="contributors-empty">No contributors found.</p>
-            <p style={{fontSize: '0.9rem', color: '#9ca3af'}}>
-              No merged pull requests in KaranUnique/CryptoHub yet. 
-              <br/>Stats show 0 contributors, 0 PRs, 0 points ✅
-            </p>
-          </div>
-        )}
-
-        {!loading && !error && filteredContributors.length > 0 && (
-          <div className="contributors-grid">
-            {filteredContributors.map((c) => (
-              <article
-                key={c.username}
-                className={`contributor-card contributor-rank-${c.rank.toLowerCase().replace(' ', '-').replace('🥇', '').replace('🥈', '').replace('🥉', '')}`}
-              >
-                <div className="contributor-header">
-                  <div className="contributor-avatar-wrapper">
-                    <img
-                      src={c.avatar_url}
-                      alt={c.username}
-                      className="contributor-avatar"
-                    />
-                  </div>
-                  <div className="contributor-basic-info">
-                    <h2 className="contributor-username">{c.username}</h2>
-                    <p className={`contributor-rank contributor-rank-${c.rank.toLowerCase().replace(' ', '-').replace('🥇', '').replace('🥈', '').replace('🥉', '')}`}>
-                      {c.rank}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="contributor-stats">
-                  <div className="contributor-stat-item">
-                    <span className="contributor-stat-label">Points</span>
-                    <span className="contributor-stat-value">{c.totalPoints}</span>
-                  </div>
-                  <div className="contributor-stat-item">
-                    <span className="contributor-stat-label">Merged PRs</span>
-                    <span className="contributor-stat-value">{c.totalPRs}</span>
-                  </div>
-                </div>
-
-                <div className="contributor-actions">
-                  <button
-                    className="btn btn-primary btn-view-prs"
-                    onClick={() => handleOpenModal(c)}
-                  >
-                    View PR details
-                  </button>
-                  <button
-                    className="btn btn-outline btn-view-github"
-                    onClick={() => handleOpenGitHubProfile(c.html_url)}
-                  >
-                    GitHub Profile →
-                  </button>
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* Modal for PR details */}
-      {showModal && selectedContributor && (
-        <div className="contributors-modal-backdrop" onClick={handleCloseModal}>
-          <div
-            className="contributors-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="contributors-modal-header">
-              <h2 className="contributors-modal-title">
-                PRs by {selectedContributor.username}
-              </h2>
+            <div className="project-admin-actions">
               <button
-                className="contributors-modal-close"
-                onClick={handleCloseModal}
+                className="btn btn-primary project-admin-btn"
+                onClick={() => handleOpenGitHubProfile(PROJECT_ADMIN.githubUrl)}
               >
-                ×
+                View GitHub Profile →
               </button>
-            </div>
-
-            <div className="contributors-modal-body">
-              {selectedContributor.prs.length === 0 && (
-                <p className="contributors-modal-empty">
-                  No merged pull requests found for this contributor.
-                </p>
-              )}
-
-              {selectedContributor.prs.length > 0 && (
-                <ul className="contributors-modal-pr-list">
-                  {selectedContributor.prs.map((pr) => (
-                    <li key={pr.id} className="contributors-modal-pr-item">
-                      <div className="contributors-modal-pr-main">
-                        <a
-                          href={pr.html_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="contributors-modal-pr-title"
-                        >
-                          #{pr.number} — {pr.title}
-                        </a>
-                        <span className="contributors-modal-pr-date">
-                          Merged at: {pr.merged_at
-                            ? new Date(pr.merged_at).toLocaleString()
-                            : "N/A"}
-                        </span>
-                      </div>
-
-                      <div className="contributors-modal-pr-meta">
-                        <span className="contributors-modal-pr-level">
-                          Level: {pr.level ? `Level ${pr.level}` : "Not specified"}
-                        </span>
-                        <span className="contributors-modal-pr-points">
-                          Points: {pr.points}
-                        </span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            <div className="contributors-modal-footer">
               <button
-                className="btn btn-secondary contributors-modal-close-btn"
-                onClick={handleCloseModal}
+                className="btn btn-outline project-admin-btn"
+                onClick={handleOpenRepo}
               >
-                Close
+                Open Repository
               </button>
             </div>
           </div>
-        </div>
-      )}
+        </section>
+
+        {/* Content Section */}
+        <section className="contributors-content">
+          {loading && (
+            <div className="loading-container">
+              <p className="contributors-loading">Loading contributor data from GitHub...</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="error-container">
+              <p className="contributors-error">{error}</p>
+              <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)' }}>
+                Stats will show "No contributors found" - normal if repo has no merged PRs yet.
+              </p>
+            </div>
+          )}
+
+          {!loading && !error && filteredContributors.length === 0 && (
+            <div className="empty-state">
+              <p className="contributors-empty">No contributors found.</p>
+              <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.4)' }}>
+                No merged pull requests in KaranUnique/CryptoHub yet.
+                <br />Stats show 0 contributors, 0 PRs, 0 points ✅
+              </p>
+            </div>
+          )}
+
+          {!loading && !error && filteredContributors.length > 0 && (
+            <div className="contributors-grid">
+              {filteredContributors.map((c) => (
+                <article
+                  key={c.username}
+                  className={`contributor-card contributor-rank-${c.rank.toLowerCase().replace(' ', '-').replace('🥇', '').replace('🥈', '').replace('🥉', '')}`}
+                >
+                  <div className="contributor-header">
+                    <div className="contributor-avatar-wrapper">
+                      <img
+                        src={c.avatar_url}
+                        alt={c.username}
+                        className="contributor-avatar"
+                      />
+                    </div>
+                    <div className="contributor-basic-info">
+                      <h2 className="contributor-username">{c.username}</h2>
+                      <p className={`contributor-rank contributor-rank-${c.rank.toLowerCase().replace(' ', '-').replace('🥇', '').replace('🥈', '').replace('🥉', '')}`}>
+                        {c.rank}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="contributor-stats">
+                    <div className="contributor-stat-item">
+                      <span className="contributor-stat-label">Points</span>
+                      <span className="contributor-stat-value">{c.totalPoints}</span>
+                    </div>
+                    <div className="contributor-stat-item">
+                      <span className="contributor-stat-label">Merged PRs</span>
+                      <span className="contributor-stat-value">{c.totalPRs}</span>
+                    </div>
+                  </div>
+
+                  <div className="contributor-actions">
+                    <button
+                      className="btn btn-primary btn-view-prs"
+                      onClick={() => handleOpenModal(c)}
+                    >
+                      View PR details
+                    </button>
+                    <button
+                      className="btn btn-outline btn-view-github"
+                      onClick={() => handleOpenGitHubProfile(c.html_url)}
+                    >
+                      GitHub Profile →
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Modal for PR details */}
+        {showModal && selectedContributor && (
+          <div className="contributors-modal-backdrop" onClick={handleCloseModal}>
+            <div
+              className="contributors-modal"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="contributors-modal-header">
+                <h2 className="contributors-modal-title">
+                  PRs by {selectedContributor.username}
+                </h2>
+                <button
+                  className="contributors-modal-close"
+                  onClick={handleCloseModal}
+                >
+                  ×
+                </button>
+              </div>
+
+              <div className="contributors-modal-body">
+                {selectedContributor.prs.length === 0 && (
+                  <p className="contributors-modal-empty">
+                    No merged pull requests found for this contributor.
+                  </p>
+                )}
+
+                {selectedContributor.prs.length > 0 && (
+                  <ul className="contributors-modal-pr-list">
+                    {selectedContributor.prs.map((pr) => (
+                      <li key={pr.id} className="contributors-modal-pr-item">
+                        <div className="contributors-modal-pr-main">
+                          <a
+                            href={pr.html_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="contributors-modal-pr-title"
+                          >
+                            #{pr.number} — {pr.title}
+                          </a>
+                          <span className="contributors-modal-pr-date">
+                            Merged: {pr.merged_at
+                              ? new Date(pr.merged_at).toLocaleDateString()
+                              : "N/A"}
+                          </span>
+                        </div>
+
+                        <div className="contributors-modal-pr-meta">
+                          <span className="contributors-modal-pr-level">
+                            {pr.level ? `Level ${pr.level}` : "No Level"}
+                          </span>
+                          <span className="contributors-modal-pr-points">
+                            +{pr.points} pts
+                          </span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div className="contributors-modal-footer">
+                <button
+                  className="btn btn-secondary contributors-modal-close-btn"
+                  onClick={handleCloseModal}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
