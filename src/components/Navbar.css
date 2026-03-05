@@ -120,23 +120,27 @@
 }
 
 .btn-grow {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(59, 130, 246, 0.15);
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.4);
   padding: 10px 24px;
   border-radius: 999px;
   font-weight: 600;
   font-size: 0.875rem;
   text-decoration: none;
   transition: all 0.3s;
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-grow:hover {
-  background: rgba(59, 130, 246, 0.1);
-  border-color: rgba(59, 130, 246, 0.4);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-  transform: translateY(-1px);
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+  transform: translateY(-2px);
 }
 
 /* Desktop Auth hidden or styled subtly in this specific mode */
@@ -148,10 +152,101 @@
 
 .navbar-toggle {
   display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Mobile Drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-drawer.open {
+  right: 0;
+}
+
+.mobile-drawer-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.mobile-link {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.mobile-link:hover,
+.mobile-link.active {
+  color: #3b82f6;
+}
+
+.mobile-drawer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding: 0 40px;
+}
+
+.mobile-btn-login {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+}
+
+.mobile-btn-signup {
+  text-align: center;
+  background: #3b82f6;
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
 }
 
 @media (max-width: 992px) {
-  .navbar-menu {
+
+  .navbar-menu,
+  .navbar-actions {
     display: none;
   }
+
+  .navbar-toggle {
+    display: block;
+  }
+
+  .navbar {
+    padding: 0 24px;
+  }
+}
+
+.navbar.scrolled {
+  background: rgba(0, 0, 0, 0.8);
+  height: 70px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }

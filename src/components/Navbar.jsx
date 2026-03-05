@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FiLock } from "react-icons/fi";
+import { FiLock, FiMenu, FiX } from "react-icons/fi";
 import "./Navbar.css";
 
 function Navbar() {
@@ -51,15 +51,15 @@ function Navbar() {
   ];
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-content">
         {/* Brand Left */}
-        <Link to="/" className="navbar-logo">
+        <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
           <img src="/favicon.svg" alt="CryptoHub" className="logo-img" />
           <span>CryptoHub</span>
         </Link>
 
-        {/* Centered Menu */}
+        {/* Centered Menu (Desktop) */}
         <ul className="navbar-menu">
           {navLinks.map((link) => (
             <li key={link.to} className="navbar-item">
@@ -73,12 +73,42 @@ function Navbar() {
           ))}
         </ul>
 
-        {/* Right Actions */}
+        {/* Right Actions (Desktop) */}
         <div className="navbar-actions">
           <Link to="/login" className="btn-login">
             Login
           </Link>
           <Link to="/signup" className="btn-grow">
+            Get Started
+          </Link>
+        </div>
+
+        {/* Mobile Toggle */}
+        <button className="navbar-toggle" onClick={toggleMobileMenu}>
+          {isMobileMenuOpen ? <FiX /> : <FiMenu />}
+        </button>
+      </div>
+
+      {/* Mobile Drawer */}
+      <div className={`mobile-drawer ${isMobileMenuOpen ? 'open' : ''}`}>
+        <ul className="mobile-drawer-menu">
+          {navLinks.map((link) => (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                className={`mobile-link ${location.pathname === link.to ? "active" : ""}`}
+                onClick={closeMobileMenu}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="mobile-drawer-actions">
+          <Link to="/login" className="mobile-btn-login" onClick={closeMobileMenu}>
+            Login
+          </Link>
+          <Link to="/signup" className="mobile-btn-signup" onClick={closeMobileMenu}>
             Get Started
           </Link>
         </div>

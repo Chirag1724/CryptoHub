@@ -43,7 +43,7 @@ const Footer = () => {
               Crypto<span>Hub</span>.
             </h2>
             <p>
-              The world's most accurate real-time crypto tracking & analytics platform. 
+              The world's most accurate real-time crypto tracking & analytics platform.
               Live prices, advanced charts, portfolio tracking & AI insights.
             </p>
             <div className="payment-methods">
@@ -55,25 +55,27 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="footer-links">
-            <h4>Markets</h4>
-            <ul>
-              <li><Link to="/trending">Trending Coins</Link></li>
-              <li><Link to="/gainers">Top Gainers</Link></li>
-              <li><Link to="/losers">Top Losers</Link></li>
-              <li><Link to="/new">New Listings</Link></li>
-            </ul>
-          </div>
+          {/* Quick Links Grouped for Mobile Side-by-Side */}
+          <div className="footer-links-group">
+            <div className="footer-links">
+              <h4>Markets</h4>
+              <ul>
+                <li><Link to="/trending">Trending Coins</Link></li>
+                <li><Link to="/gainers">Top Gainers</Link></li>
+                <li><Link to="/losers">Top Losers</Link></li>
+                <li><Link to="/new">New Listings</Link></li>
+              </ul>
+            </div>
 
-          <div className="footer-links">
-            <h4>Product</h4>
-            <ul>
-              <li><Link to="/features">Features</Link></li>
-              <li><Link to="/pricing">Pricing</Link></li>
-              <li><Link to="/portfolio">Portfolio</Link></li>
-              <li><Link to="/api">API Access</Link></li>
-            </ul>
+            <div className="footer-links">
+              <h4>Product</h4>
+              <ul>
+                <li><Link to="/features">Features</Link></li>
+                <li><Link to="/pricing">Pricing</Link></li>
+                <li><Link to="/portfolio">Portfolio</Link></li>
+                <li><Link to="/api">API Access</Link></li>
+              </ul>
+            </div>
           </div>
 
           {/* Newsletter Section */}
@@ -119,8 +121,8 @@ const Footer = () => {
 
           <div className="footer-bottom">
             <p>
-              <Link to="/privacy">Privacy Policy</Link> • 
-              <Link to="/terms"> Terms of Service</Link> • 
+              <Link to="/privacy">Privacy Policy</Link> •
+              <Link to="/terms"> Terms of Service</Link> •
               <Link to="/cookies"> Cookie Policy</Link>
             </p>
             <p>Copyright © {currentYear} CryptoHub. All rights reserved.</p>
